@@ -4,5 +4,8 @@ html
     title= title
 
   body
-    h3 #{content}
-    h1 Hello World!!!
+    h1 #{content}
+    
+    include ../client/html/index.html
+
+    script(src="/scripts/bundle.js")

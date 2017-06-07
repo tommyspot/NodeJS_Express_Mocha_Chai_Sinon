@@ -13,10 +13,11 @@ app.use(bodyParser.urlencoded({ "extended": false }));
 
 app.set('views', __dirname + '/views');
 app.set('view engine', 'jade');
+app.use("/scripts", express.static("./client"));
 
 router.get("/", function (req, res) {
   //res.json({ "status": 200, "message": "Hello World" });
-  res.render('index', { status: 200, content: 'Hello JADE, My name is tommyspot' });
+  res.render('index', { title: 'Express + JADE', content: 'Hello JADE, My name is tommyspot' });
 
 });
 
