@@ -1,5 +1,6 @@
 // https://codequs.com/p/B108Pqbt/build-a-restful-api-with-node-js-and-mongodb/
 // coverage test: "istanbul cover node_modules\mocha\bin\_mocha -- -R spec"
+//hot deploy: nodemon ./server.js
 
 var express = require("express");
 var app = express();
@@ -10,8 +11,13 @@ var router = express.Router();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ "extended": false }));
 
+app.set('views', __dirname + '/views');
+app.set('view engine', 'jade');
+
 router.get("/", function (req, res) {
-  res.json({ "status": 200, "message": "Hello World" });
+  //res.json({ "status": 200, "message": "Hello World" });
+  res.render('index', { status: 200, content: 'Hello JADE, My name is tommyspot' });
+
 });
 
 router.route("/users")
@@ -21,9 +27,10 @@ router.route("/users")
       if (err) {
         response = { "status": 404, "message": "Error fetching data" };
       } else {
-        response = { "status": 200, "message": data };
+        response = { status: 200, data: data };
       }
-      res.json(response);
+      //res.json(response);
+      res.render('users', response);
     });
   })
   .post(function (req, res) {
@@ -48,7 +55,7 @@ router.route("/users/:id")
       if (err) {
         response = { "status": 501, "message": "Error fetching data" };
       } else {
-        response = { "status": 200, "message": data };
+        response = { "status": 200, "data": data };
       }
       res.json(response);
     });
