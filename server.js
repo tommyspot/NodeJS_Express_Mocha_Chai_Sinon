@@ -13,7 +13,9 @@ app.use(bodyParser.urlencoded({ "extended": false }));
 
 app.set('views', __dirname + '/views');
 app.set('view engine', 'jade');
-app.use("/scripts", express.static("./client"));
+app.use("/scripts", express.static("./client/js"));
+app.use("/css", express.static("./client/css"));
+app.use("/images", express.static("./client/images"));
 
 router.get("/", function (req, res) {
   //res.json({ "status": 200, "message": "Hello World" });
