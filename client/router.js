@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter, Switch, Route, Link } from 'react-router-dom';
 
 // Layouts
 // import MainLayout from './components/main-layout';
@@ -7,15 +7,36 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 // Pages
 import Home from './js/jsx/home.jsx';
 import UserList from './js/jsx/userList.jsx';
-// import UserList from './components/user-list';
-// import UserProfile from './components/user-profile';
-// import WidgetList from './components/widget-list';
+import UserDetail from './js/jsx/userDetail.jsx';
+
+import Header from './js/jsx/components/header.jsx';
+
+
+const UserComponent = () => (
+    <Switch>
+      <Route exact path='/users' component={UserList}/>
+      <Route path='/users/:id' component={UserDetail}/>
+    </Switch>
+)
+
+const Main = () => (
+  <main>
+    <Switch>
+      <Route exact path='/' component={Home}/>
+      <Route path='/users' component={UserComponent}/>
+    </Switch>
+  </main>
+)
+
+const App =() => (
+  <div>
+    <Header />
+    <Main />
+  </div>
+)
 
 export default (
-  <Router>
-    <Switch>
-      <Route path="/" component={Home} />
-      <Route path="/users" component={UserList} />
-    </Switch>
-  </Router>
+  <BrowserRouter>
+    <App />
+  </BrowserRouter>
 );
