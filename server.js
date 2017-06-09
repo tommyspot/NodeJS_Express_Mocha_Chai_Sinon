@@ -16,6 +16,7 @@ app.set('view engine', 'jade');
 app.use("/scripts", express.static("./client/js"));
 app.use("/css", express.static("./client/css"));
 app.use("/images", express.static("./client/images"));
+app.use("/public", express.static("./client/public"));
 
 router.get("/", function (req, res) {
   //res.json({ "status": 200, "message": "Hello World" });
