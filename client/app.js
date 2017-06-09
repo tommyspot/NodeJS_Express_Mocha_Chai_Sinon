@@ -1,4 +1,5 @@
 //https://css-tricks.com/learning-react-router/
+require("./css/app.scss");
 
 import ReactDOM from 'react-dom';
 
