@@ -34,6 +34,7 @@ export default class UserHome extends React.Component {
       this.setState({users: data});
     }, (error) => {
       console.log(error);
+      this.setState({isOpenModal: true});
     });
   }
 
@@ -47,7 +48,9 @@ export default class UserHome extends React.Component {
     return (
       <div>
         <h1>User List: <button className="btn btn-primary" data-toggle="modal" data-target="#userModal">Add user</button></h1>
-        <UserModal id="userModal" title="Add user" saveUser={this.addUser} isOpenModal={this.state.isOpenModal}/>
+        {
+          this.state.isOpenModal ? <UserModal id="userModal" title="Add user" saveUser={this.addUser}/> : null
+        }
         <UserList users={this.state.users} removeUser={this.removeUser} />
       </div>
     );
