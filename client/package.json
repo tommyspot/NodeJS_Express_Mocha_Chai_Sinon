@@ -9,6 +9,7 @@
   "author": "tommyspot",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.16.2",
     "babel-loader": "^7.0.0",
     "css-loader": "^0.28.4",
     "extract-text-webpack-plugin": "^2.1.2",

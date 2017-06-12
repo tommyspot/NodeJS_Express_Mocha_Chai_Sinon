@@ -20,7 +20,7 @@ export default class Header extends React.Component {
                 <Link className="nav-link" to='/'>Home</Link>
               </li>
               <li className="nav-item">
-                <li><Link className="nav-link" to='/users'>Users</Link></li>
+                <Link className="nav-link" to='/users'>Users</Link>
               </li>
             </ul>
             <form className="form-inline my-2 my-lg-0">
