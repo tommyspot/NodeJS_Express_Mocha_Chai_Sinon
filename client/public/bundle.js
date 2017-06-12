@@ -7494,7 +7494,7 @@ Router.childContextTypes = {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_path_to_regexp__ = __webpack_require__(153);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_path_to_regexp__ = __webpack_require__(152);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_path_to_regexp___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_path_to_regexp__);
 
 
@@ -13015,6 +13015,12 @@ var UserModal = function (_React$Component) {
   }
 
   _createClass(UserModal, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      //$(this.getDOMNode()).modal('show');
+      //$(this.getDOMNode()).on('hidden.bs.modal', this.props.handleHideModal);
+    }
+  }, {
     key: 'handleInputChange',
     value: function handleInputChange(event) {
       var target = event.target;
@@ -13030,7 +13036,7 @@ var UserModal = function (_React$Component) {
 
       return _react2.default.createElement(
         'div',
-        { className: 'modal fade', id: this.props.id, tabIndex: '-1', role: 'dialog', 'aria-labelledby': 'exampleModalLabel', 'aria-hidden': 'true' },
+        { className: 'thaotest modal fade', id: this.props.id, tabIndex: '-1', role: 'dialog', 'aria-labelledby': 'exampleModalLabel', 'aria-hidden': 'true' },
         _react2.default.createElement(
           'div',
           { className: 'modal-dialog', role: 'document' },
@@ -13093,7 +13099,7 @@ var UserModal = function (_React$Component) {
               ),
               _react2.default.createElement(
                 'button',
-                { type: 'button', className: 'btn btn-primary', 'data-dismiss': this.props.isOpenModal ? "modal" : "", onClick: function onClick() {
+                { type: 'button', className: 'btn btn-primary', onClick: function onClick() {
                     return _this2.props.saveUser(_this2.state.email, _this2.state.password);
                   } },
                 'Save'
@@ -13114,8 +13120,7 @@ exports.default = UserModal;
 UserModal.propTypes = {
   id: _propTypes2.default.string.isRequired,
   title: _propTypes2.default.string,
-  saveUser: _propTypes2.default.func,
-  isOpenModal: _propTypes2.default.bool
+  saveUser: _propTypes2.default.func
 };
 
 /***/ }),
@@ -13392,6 +13397,7 @@ var UserHome = function (_React$Component) {
         _this3.setState({ users: data });
       }, function (error) {
         console.log(error);
+        _this3.setState({ isOpenModal: true });
       });
     }
   }, {
@@ -13419,7 +13425,7 @@ var UserHome = function (_React$Component) {
             'Add user'
           )
         ),
-        _react2.default.createElement(_userModal2.default, { id: 'userModal', title: 'Add user', saveUser: this.addUser, isOpenModal: this.state.isOpenModal }),
+        this.state.isOpenModal ? _react2.default.createElement(_userModal2.default, { id: 'userModal', title: 'Add user', saveUser: this.addUser }) : null,
         _react2.default.createElement(_userList2.default, { users: this.state.users, removeUser: this.removeUser })
       );
     }
@@ -13487,7 +13493,11 @@ var UserService = exports.UserService = function () {
         password: password
       }).then(function (res) {
         console.log(res);
-        return _this.getAllUsers(successFunc, errorFunc);
+        if (res.data && res.data.status === 501) {
+          return errorFunc(res.data.message);
+        } else {
+          return _this.getAllUsers(successFunc, errorFunc);
+        }
       }).catch(function (error) {
         return errorFunc('Add user error!!!');
       });
@@ -15142,18 +15152,9 @@ function isSlowBuffer (obj) {
 
 /***/ }),
 /* 152 */
-/***/ (function(module, exports) {
-
-module.exports = Array.isArray || function (arr) {
-  return Object.prototype.toString.call(arr) == '[object Array]';
-};
-
-
-/***/ }),
-/* 153 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var isarray = __webpack_require__(152)
+var isarray = __webpack_require__(153)
 
 /**
  * Expose `pathToRegexp`.
@@ -15579,6 +15580,15 @@ function pathToRegexp (path, keys, options) {
 
   return stringToRegexp(/** @type {string} */ (path), /** @type {!Array} */ (keys), options)
 }
+
+
+/***/ }),
+/* 153 */
+/***/ (function(module, exports) {
+
+module.exports = Array.isArray || function (arr) {
+  return Object.prototype.toString.call(arr) == '[object Array]';
+};
 
 
 /***/ }),

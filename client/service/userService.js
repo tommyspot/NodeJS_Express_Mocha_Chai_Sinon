@@ -30,7 +30,11 @@ export class UserService {
       })
       .then(res => {
         console.log(res);
-        return this.getAllUsers(successFunc, errorFunc);
+        if(res.data && res.data.status === 501){
+          return errorFunc(res.data.message);
+        } else {
+          return this.getAllUsers(successFunc, errorFunc);
+        }
       })
       .catch(error => {
         return errorFunc('Add user error!!!');

@@ -40,16 +40,22 @@ router.route("/users")
   .post(function (req, res) {
     var db = new mongoOp();
     var response = {};
-    db.userEmail = req.body.email;
-    db.userPassword = require('crypto').createHash('sha1').update(req.body.password).digest('base64');
-    db.save(function (err) {
-      if (err) {
-        response = { "status": 501, "message": "Error adding data" };
-      } else {
-        response = { "status": 200, "message": "Data added" };
-      }
+
+    if(req.body.email === '' || req.body.password === ''){
+      response = { "status": 501, "message": "Input fields must not empty" };
       res.json(response);
-    });
+    } else {
+    db.userEmail = req.body.email;
+      db.userPassword = require('crypto').createHash('sha1').update(req.body.password).digest('base64');
+      db.save(function (err) {
+        if (err) {
+          response = { "status": 501, "message": "Error adding data" };
+        } else {
+          response = { "status": 200, "message": "Data added" };
+        }
+        res.json(response);
+      });
+    }
   });
 
 router.route("/users/:id")
