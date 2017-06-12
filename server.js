@@ -33,8 +33,8 @@ router.route("/users")
       } else {
         response = { status: 200, data: data };
       }
-      //res.json(response);
-      res.render('users', response);
+      res.json(response);
+      //res.render('users', response);
     });
   })
   .post(function (req, res) {
