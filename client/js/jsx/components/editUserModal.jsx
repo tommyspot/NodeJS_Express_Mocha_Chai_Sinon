@@ -1,21 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export default class UserModal extends React.Component {
+export default class EditUserModal extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: '',
-      password: '',
+      email: props.user.email,
+      password: props.user.password,
     };
 
     this.handleInputChange = this.handleInputChange.bind(this);
-  }
-
-//https://stackoverflow.com/questions/28241912/bootstrap-modal-in-react-js
-  componentDidMount(){
-      //$(this.getDOMNode()).modal('show');
-      //$(this.getDOMNode()).on('hidden.bs.modal', this.props.handleHideModal);
   }
 
   handleInputChange(event) {
@@ -53,7 +47,7 @@ export default class UserModal extends React.Component {
             </div>
             <div className="modal-footer">
               <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
-              <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={() => this.props.saveUser(this.state.email, this.state.password)}>Save</button>
+              <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={() => this.props.updateUser(this.props.user._id, this.state.email, this.state.password)}>Save</button>
             </div>
           </div>
         </div>
@@ -62,8 +56,9 @@ export default class UserModal extends React.Component {
   }
 }
 
-UserModal.propTypes = {
+EditUserModal.propTypes = {
   id: PropTypes.string.isRequired,
+  user: PropTypes.object.isRequired,
   title: PropTypes.string,
-  saveUser: PropTypes.func
+  updateUser: PropTypes.func
 }
