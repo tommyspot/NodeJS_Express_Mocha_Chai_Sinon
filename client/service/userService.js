@@ -42,7 +42,7 @@ export class UserService {
   }
 
   updateUser(id, email, password, successFunc, errorFunc){
-    return Axios.put('/users' + id, {
+    return Axios.put('/users/' + id, {
         email: email,
         password: password
       })

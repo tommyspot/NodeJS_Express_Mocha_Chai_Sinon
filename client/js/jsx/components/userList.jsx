@@ -23,7 +23,8 @@ export default class UserList extends React.Component {
             {
               this.props.users.map((user, index) => {
                 return (
-                  <User user={user} key={user._id} index={index} removeUser={this.props.removeUser} updateUser={this.props.updateUser}/>
+                  <User user={user} key={user._id} index={index} removeUser={this.props.removeUser} 
+                    updateUser={this.props.updateUser} />
                 );
               })
             }

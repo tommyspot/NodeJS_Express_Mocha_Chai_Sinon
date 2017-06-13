@@ -7494,7 +7494,7 @@ Router.childContextTypes = {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_path_to_regexp__ = __webpack_require__(154);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_path_to_regexp__ = __webpack_require__(153);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_path_to_regexp___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_path_to_regexp__);
 
 
@@ -12709,8 +12709,8 @@ var EditUserModal = function (_React$Component) {
     var _this = _possibleConstructorReturn(this, (EditUserModal.__proto__ || Object.getPrototypeOf(EditUserModal)).call(this, props));
 
     _this.state = {
-      email: props.user.email,
-      password: props.user.password
+      email: props.user.userEmail,
+      password: props.user.userPassword
     };
 
     _this.handleInputChange = _this.handleInputChange.bind(_this);
@@ -12733,7 +12733,7 @@ var EditUserModal = function (_React$Component) {
 
       return _react2.default.createElement(
         'div',
-        { className: 'thaotest modal fade', id: this.props.id, tabIndex: '-1', role: 'dialog', 'aria-labelledby': 'exampleModalLabel', 'aria-hidden': 'true' },
+        { className: 'modal fade text-left', id: this.props.id, tabIndex: '-1', role: 'dialog', 'aria-labelledby': 'exampleModalLabel', 'aria-hidden': 'true' },
         _react2.default.createElement(
           'div',
           { className: 'modal-dialog', role: 'document' },
@@ -12772,7 +12772,7 @@ var EditUserModal = function (_React$Component) {
                     { htmlFor: 'email', className: 'form-control-label' },
                     'Email:'
                   ),
-                  _react2.default.createElement('input', { type: 'text', className: 'form-control', id: 'email', name: 'email', onChange: this.handleInputChange })
+                  _react2.default.createElement('input', { type: 'text', className: 'form-control', id: 'email', name: 'email', value: this.state.email, onChange: this.handleInputChange })
                 ),
                 _react2.default.createElement(
                   'div',
@@ -12782,7 +12782,7 @@ var EditUserModal = function (_React$Component) {
                     { htmlFor: 'password', className: 'form-control-label' },
                     'Password:'
                   ),
-                  _react2.default.createElement('input', { type: 'password', className: 'form-control', id: 'password', name: 'password', onChange: this.handleInputChange })
+                  _react2.default.createElement('input', { type: 'password', className: 'form-control', id: 'password', name: 'password', value: this.state.password, onChange: this.handleInputChange })
                 )
               )
             ),
@@ -12796,7 +12796,7 @@ var EditUserModal = function (_React$Component) {
               ),
               _react2.default.createElement(
                 'button',
-                { type: 'button', className: 'btn btn-primary', 'data-dismiss': 'modal', onClick: function onClick() {
+                { type: 'button', className: 'btn btn-primary', onClick: function onClick() {
                     return _this2.props.updateUser(_this2.props.user._id, _this2.state.email, _this2.state.password);
                   } },
                 'Save'
@@ -12992,11 +12992,11 @@ var User = function (_React$Component) {
           { className: 'text-center' },
           _react2.default.createElement(
             'button',
-            { className: 'btn btn-primary', 'data-toggle': 'modal', 'data-target': '#userInfoModal' },
+            { className: 'btn btn-primary', 'data-toggle': 'modal', 'data-target': "#userInfoModal-" + this.props.user._id },
             'Edit'
           ),
           '\xA0',
-          _react2.default.createElement(_editUserModal2.default, { id: 'userInfoModal', user: this.props.user, title: 'Edit user', updateUser: this.props.updateUser }),
+          _react2.default.createElement(_editUserModal2.default, { id: "userInfoModal-" + this.props.user._id, user: this.props.user, title: 'Edit user', updateUser: this.props.updateUser }),
           _react2.default.createElement(
             'button',
             { className: 'btn btn-danger', onClick: function onClick() {
@@ -13105,7 +13105,8 @@ var UserList = function (_React$Component) {
             'tbody',
             null,
             this.props.users.map(function (user, index) {
-              return _react2.default.createElement(_user2.default, { user: user, key: user._id, index: index, removeUser: _this2.props.removeUser, updateUser: _this2.props.updateUser });
+              return _react2.default.createElement(_user2.default, { user: user, key: user._id, index: index, removeUser: _this2.props.removeUser,
+                updateUser: _this2.props.updateUser });
             })
           )
         )
@@ -13173,16 +13174,7 @@ var UserModal = function (_React$Component) {
     return _this;
   }
 
-  //https://stackoverflow.com/questions/28241912/bootstrap-modal-in-react-js
-
-
   _createClass(UserModal, [{
-    key: 'componentDidMount',
-    value: function componentDidMount() {
-      //$(this.getDOMNode()).modal('show');
-      //$(this.getDOMNode()).on('hidden.bs.modal', this.props.handleHideModal);
-    }
-  }, {
     key: 'handleInputChange',
     value: function handleInputChange(event) {
       var target = event.target;
@@ -13198,7 +13190,7 @@ var UserModal = function (_React$Component) {
 
       return _react2.default.createElement(
         'div',
-        { className: 'thaotest modal fade', id: this.props.id, tabIndex: '-1', role: 'dialog', 'aria-labelledby': 'exampleModalLabel', 'aria-hidden': 'true' },
+        { className: 'modal fade', id: this.props.id, tabIndex: '-1', role: 'dialog', 'aria-labelledby': 'exampleModalLabel', 'aria-hidden': 'true' },
         _react2.default.createElement(
           'div',
           { className: 'modal-dialog', role: 'document' },
@@ -13229,6 +13221,11 @@ var UserModal = function (_React$Component) {
               _react2.default.createElement(
                 'form',
                 null,
+                this.props.errorMessage !== '' ? _react2.default.createElement(
+                  'div',
+                  { className: 'alert alert-danger', role: 'alert' },
+                  this.props.errorMessage
+                ) : null,
                 _react2.default.createElement(
                   'div',
                   { className: 'form-group' },
@@ -13261,7 +13258,7 @@ var UserModal = function (_React$Component) {
               ),
               _react2.default.createElement(
                 'button',
-                { type: 'button', className: 'btn btn-primary', 'data-dismiss': 'modal', onClick: function onClick() {
+                { type: 'button', className: 'btn btn-primary', onClick: function onClick() {
                     return _this2.props.saveUser(_this2.state.email, _this2.state.password);
                   } },
                 'Save'
@@ -13281,8 +13278,9 @@ exports.default = UserModal;
 
 UserModal.propTypes = {
   id: _propTypes2.default.string.isRequired,
-  title: _propTypes2.default.string,
-  saveUser: _propTypes2.default.func
+  title: _propTypes2.default.string.isRequired,
+  saveUser: _propTypes2.default.func.isRequired,
+  errorMessage: _propTypes2.default.string
 };
 
 /***/ }),
@@ -13528,7 +13526,7 @@ var UserHome = function (_React$Component) {
 
     _this.state = {
       users: [],
-      isOpenModal: true
+      errorMessage: ''
     };
     _this.removeUser = _this.removeUser.bind(_this);
     _this.addUser = _this.addUser.bind(_this);
@@ -13556,11 +13554,12 @@ var UserHome = function (_React$Component) {
       var _this3 = this;
 
       _userService.userService.addUser(email, password, function (data) {
-        _this3.setState({ isOpenModal: false });
+        $("#userModal").modal('hide');
+        _this3.setState({ errorMessage: '' });
         _this3.setState({ users: data });
       }, function (error) {
         console.log(error);
-        _this3.setState({ isOpenModal: true });
+        _this3.setState({ errorMessage: error });
       });
     }
   }, {
@@ -13569,6 +13568,7 @@ var UserHome = function (_React$Component) {
       var _this4 = this;
 
       _userService.userService.updateUser(id, email, password, function (data) {
+        $("#userInfoModal-" + id).modal('hide');
         _this4.setState({ users: data });
       }, function (error) {
         console.log(error);
@@ -13601,7 +13601,7 @@ var UserHome = function (_React$Component) {
             'Add user'
           )
         ),
-        _react2.default.createElement(_userModal2.default, { id: 'userModal', title: 'Add user', saveUser: this.addUser }),
+        _react2.default.createElement(_userModal2.default, { id: 'userModal', title: 'Add user', saveUser: this.addUser, errorMessage: this.state.errorMessage }),
         _react2.default.createElement(_userList2.default, { users: this.state.users, removeUser: this.removeUser, updateUser: this.updateUser })
       );
     }
@@ -13683,7 +13683,7 @@ var UserService = exports.UserService = function () {
     value: function updateUser(id, email, password, successFunc, errorFunc) {
       var _this2 = this;
 
-      return _axios2.default.put('/users' + id, {
+      return _axios2.default.put('/users/' + id, {
         email: email,
         password: password
       }).then(function (res) {
@@ -15347,18 +15347,9 @@ function isSlowBuffer (obj) {
 
 /***/ }),
 /* 153 */
-/***/ (function(module, exports) {
-
-module.exports = Array.isArray || function (arr) {
-  return Object.prototype.toString.call(arr) == '[object Array]';
-};
-
-
-/***/ }),
-/* 154 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var isarray = __webpack_require__(153)
+var isarray = __webpack_require__(154)
 
 /**
  * Expose `pathToRegexp`.
@@ -15784,6 +15775,15 @@ function pathToRegexp (path, keys, options) {
 
   return stringToRegexp(/** @type {string} */ (path), /** @type {!Array} */ (keys), options)
 }
+
+
+/***/ }),
+/* 154 */
+/***/ (function(module, exports) {
+
+module.exports = Array.isArray || function (arr) {
+  return Object.prototype.toString.call(arr) == '[object Array]';
+};
 
 
 /***/ }),

@@ -2,11 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 export default class EditUserModal extends React.Component {
+
   constructor(props) {
     super(props);
     this.state = {
-      email: props.user.email,
-      password: props.user.password,
+      email: props.user.userEmail,
+      password: props.user.userPassword,
     };
 
     this.handleInputChange = this.handleInputChange.bind(this);
@@ -24,7 +25,7 @@ export default class EditUserModal extends React.Component {
 
   render(){
     return (
-      <div className="thaotest modal fade" id={this.props.id} tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div className="modal fade text-left" id={this.props.id} tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div className="modal-dialog" role="document">
           <div className="modal-content">
             <div className="modal-header">
@@ -37,17 +38,17 @@ export default class EditUserModal extends React.Component {
               <form>
                 <div className="form-group">
                   <label htmlFor="email" className="form-control-label">Email:</label>
-                  <input type="text" className="form-control" id="email" name="email" onChange={this.handleInputChange} />
+                  <input type="text" className="form-control" id="email" name="email" value={this.state.email} onChange={this.handleInputChange} />
                 </div>
                 <div className="form-group">
                   <label htmlFor="password" className="form-control-label">Password:</label>
-                  <input type="password" className="form-control" id="password" name="password" onChange={this.handleInputChange}/>
+                  <input type="password" className="form-control" id="password" name="password" value={this.state.password} onChange={this.handleInputChange}/>
                 </div>
               </form>
             </div>
             <div className="modal-footer">
               <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
-              <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={() => this.props.updateUser(this.props.user._id, this.state.email, this.state.password)}>Save</button>
+              <button type="button" className="btn btn-primary" onClick={() => this.props.updateUser(this.props.user._id, this.state.email, this.state.password)}>Save</button>
             </div>
           </div>
         </div>

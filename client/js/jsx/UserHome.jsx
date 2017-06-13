@@ -11,7 +11,7 @@ export default class UserHome extends React.Component {
     super(props);
     this.state = {
       users: [],
-      isOpenModal: true
+      errorMessage: ''
     }
     this.removeUser = this.removeUser.bind(this);
     this.addUser = this.addUser.bind(this);
@@ -31,16 +31,18 @@ export default class UserHome extends React.Component {
 
   addUser(email, password){
     userService.addUser(email, password, (data) => {
-      this.setState({isOpenModal: false});
+      $("#userModal").modal('hide');
+      this.setState({errorMessage: ''});
       this.setState({users: data});
     }, (error) => {
       console.log(error);
-      this.setState({isOpenModal: true});
+      this.setState({errorMessage: error});
     });
   }
 
   updateUser(id, email, password){
     userService.updateUser(id, email, password, (data) => {
+      $("#userInfoModal-" + id).modal('hide');
       this.setState({users: data});
     }, (error) => {
       console.log(error);
@@ -59,11 +61,8 @@ export default class UserHome extends React.Component {
     return (
       <div>
         <h1>User List: <button className="btn btn-primary" data-toggle="modal" data-target="#userModal">Add user</button></h1>
-        {/*{
-          this.state.isOpenModal ? <UserModal id="userModal" title="Add user" saveUser={this.addUser}/> : null
-        }*/}
-        <UserModal id="userModal" title="Add user" saveUser={this.addUser} />
-        <UserList users={this.state.users} removeUser={this.removeUser} updateUser={this.updateUser} />
+        <UserModal id="userModal" title="Add user" saveUser={this.addUser} errorMessage={this.state.errorMessage}/>
+        <UserList users={this.state.users} removeUser={this.removeUser} updateUser={this.updateUser}/>
       </div>
     );
   }

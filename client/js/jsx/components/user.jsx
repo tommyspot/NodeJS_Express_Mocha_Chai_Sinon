@@ -11,11 +11,10 @@ export default class User extends React.Component {
         <td>{this.props.user.userEmail}</td>
         <td>{this.props.user.userPassword}</td>
         <td className="text-center">
-          <button className="btn btn-primary" data-toggle="modal" data-target="#userInfoModal">Edit</button>&nbsp;
-          <EditUserModal id="userInfoModal" user={this.props.user} title="Edit user" updateUser={this.props.updateUser} />
-
+          <button className="btn btn-primary" data-toggle="modal" data-target={"#userInfoModal-" + this.props.user._id}>Edit</button>&nbsp;
+          <EditUserModal id={"userInfoModal-" + this.props.user._id} user={this.props.user} title="Edit user" updateUser={this.props.updateUser} />
           <button className="btn btn-danger" onClick={() => this.props.removeUser(this.props.index)}>Delete</button>
-        </td>
+        </td>        
       </tr>
     );
   }

@@ -86,7 +86,7 @@ router.route("/users/:id")
           if (err) {
             response = { "status": 501, "message": "Error updating data" };
           } else {
-            response = { "statusv": 200, "message": "Data is updated for " + req.params.id };
+            response = { "status": 200, "message": "Data is updated for " + req.params.id };
           }
           res.json(response);
         })

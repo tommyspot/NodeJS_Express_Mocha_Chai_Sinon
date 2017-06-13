@@ -12,12 +12,6 @@ export default class UserModal extends React.Component {
     this.handleInputChange = this.handleInputChange.bind(this);
   }
 
-//https://stackoverflow.com/questions/28241912/bootstrap-modal-in-react-js
-  componentDidMount(){
-      //$(this.getDOMNode()).modal('show');
-      //$(this.getDOMNode()).on('hidden.bs.modal', this.props.handleHideModal);
-  }
-
   handleInputChange(event) {
       const target = event.target;
       const value = target.value;
@@ -30,7 +24,7 @@ export default class UserModal extends React.Component {
 
   render(){
     return (
-      <div className="thaotest modal fade" id={this.props.id} tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div className="modal fade" id={this.props.id} tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div className="modal-dialog" role="document">
           <div className="modal-content">
             <div className="modal-header">
@@ -41,6 +35,10 @@ export default class UserModal extends React.Component {
             </div>
             <div className="modal-body">
               <form>
+                {
+                  this.props.errorMessage !== '' ? <div className="alert alert-danger" role="alert">{this.props.errorMessage}</div> : null
+                }
+
                 <div className="form-group">
                   <label htmlFor="email" className="form-control-label">Email:</label>
                   <input type="text" className="form-control" id="email" name="email" onChange={this.handleInputChange} />
@@ -53,7 +51,7 @@ export default class UserModal extends React.Component {
             </div>
             <div className="modal-footer">
               <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
-              <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={() => this.props.saveUser(this.state.email, this.state.password)}>Save</button>
+              <button type="button" className="btn btn-primary" onClick={() => this.props.saveUser(this.state.email, this.state.password)}>Save</button>
             </div>
           </div>
         </div>
@@ -64,6 +62,7 @@ export default class UserModal extends React.Component {
 
 UserModal.propTypes = {
   id: PropTypes.string.isRequired,
-  title: PropTypes.string,
-  saveUser: PropTypes.func
+  title: PropTypes.string.isRequired,
+  saveUser: PropTypes.func.isRequired,
+  errorMessage: PropTypes.string
 }
