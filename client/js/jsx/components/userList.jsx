@@ -23,7 +23,8 @@ export default class UserList extends React.Component {
             {
               this.props.users.map((user, index) => {
                 return (
-                  <User user={user} key={user._id} index={index} removeUser={this.props.removeUser}/>
+                  <User user={user} key={user._id} index={index} removeUser={this.props.removeUser} 
+                    updateUser={this.props.updateUser} />
                 );
               })
             }
@@ -36,5 +37,6 @@ export default class UserList extends React.Component {
 
 UserList.propTypes = {
   users: PropTypes.array.isRequired,
-  removeUser: PropTypes.func.isRequired
+  removeUser: PropTypes.func.isRequired,
+  updateUser: PropTypes.func.isRequired
 }

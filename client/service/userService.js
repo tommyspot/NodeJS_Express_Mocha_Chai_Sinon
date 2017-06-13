@@ -41,6 +41,24 @@ export class UserService {
       });
   }
 
+  updateUser(id, email, password, successFunc, errorFunc){
+    return Axios.put('/users/' + id, {
+        email: email,
+        password: password
+      })
+      .then(res => {
+        console.log(res);
+        if(res.data && res.data.status === 501){
+          return errorFunc(res.data.message);
+        } else {
+          return this.getAllUsers(successFunc, errorFunc);
+        }
+      })
+      .catch(error => {
+        return errorFunc('Update user error!!!');
+      });
+  }
+
 
 
 }
