@@ -1,11 +1,14 @@
 import Axios from 'axios';
+import store from '../store';
+import { getUsersSuccess, deleteUserSuccess, addUserSuccess, updateUserSuccess } from '../actions/userActions';
 
 export class UserService {
 
   getAllUsers(successFunc, errorFunc) {
     return Axios.get('/users')
       .then(res => {
-        return successFunc(res.data.data);
+        store.dispatch(getUsersSuccess(res.data.data));
+        return successFunc(res);
       })
       .catch(error => {
         return errorFunc('Fetch users error!!!');
@@ -15,8 +18,8 @@ export class UserService {
   deleteUser(id, successFunc, errorFunc) {
     return Axios.delete(/users/ + id)
       .then(res => {
-        console.log(res.data.message);
-        return successFunc(res.data.data);
+        store.dispatch(deleteUserSuccess(id));
+        return successFunc(res);
       })
       .catch(error => {
         return errorFunc('Delete user error!!!');
@@ -29,11 +32,12 @@ export class UserService {
         password: password
       })
       .then(res => {
-        console.log(res);
         if(res.data && res.data.status === 501){
           return errorFunc(res.data.message);
         } else {
-          return this.getAllUsers(successFunc, errorFunc);
+          console.log(res.data.data);
+          store.dispatch(addUserSuccess(res.data.data));
+          return successFunc(res);
         }
       })
       .catch(error => {
@@ -47,20 +51,17 @@ export class UserService {
         password: password
       })
       .then(res => {
-        console.log(res);
         if(res.data && res.data.status === 501){
           return errorFunc(res.data.message);
         } else {
-          return this.getAllUsers(successFunc, errorFunc);
+          store.dispatch(updateUserSuccess(res.data.data));
+          return successFunc(res);
         }
       })
       .catch(error => {
         return errorFunc('Update user error!!!');
       });
   }
-
-
-
 }
 
 export let userService = new UserService();

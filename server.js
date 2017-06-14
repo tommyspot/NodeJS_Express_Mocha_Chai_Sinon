@@ -29,7 +29,7 @@ router.route("/users")
     var response = {};
     mongoOp.find({}, function (err, data) {
       if (err) {
-        response = { "status": 404, "message": "Error fetching data" };
+        response = { status: 404, message: "Error fetching data" };
       } else {
         response = { status: 200, data: data };
       }
@@ -42,19 +42,19 @@ router.route("/users")
     var response = {};
 
     if(req.body.email === '' || req.body.password === ''){
-      response = { "status": 501, "message": "Input fields must not empty" };
+      response = { status: 501, message: "Input fields must not empty" };
       res.json(response);
     } else {
     db.userEmail = req.body.email;
-      db.userPassword = require('crypto').createHash('sha1').update(req.body.password).digest('base64');
-      db.save(function (err) {
-        if (err) {
-          response = { "status": 501, "message": "Error adding data" };
-        } else {
-          response = { "status": 200, "message": "Data added" };
-        }
-        res.json(response);
-      });
+    db.userPassword = require('crypto').createHash('sha1').update(req.body.password).digest('base64');
+    db.save(function (err, data) {
+      if (err) {
+        response = { status: 501, message: "Error adding data" };
+      } else {
+        response = { status: 200, data: data };
+      }
+      res.json(response);
+    });
     }
   });
 
@@ -63,9 +63,9 @@ router.route("/users/:id")
     var response = {};
     mongoOp.findById(req.params.id, function (err, data) {
       if (err) {
-        response = { "status": 501, "message": "Error fetching data" };
+        response = { status: 501, message: "Error fetching data" };
       } else {
-        response = { "status": 200, "data": data };
+        response = { status: 200, data: data };
       }
       res.json(response);
     });
@@ -74,19 +74,19 @@ router.route("/users/:id")
     var response = {};
     mongoOp.findById(req.params.id, function (err, data) {
       if (err) {
-        response = { "status": 501, "message": "Error fetching data" };
+        response = { status: 501, message: "Error fetching data" };
       } else {
         if (req.body.email !== undefined) {
           data.userEmail = req.body.email;
         }
         if (req.body.password !== undefined) {
-          data.userPassword = req.body.password;
+          data.userPassword = require('crypto').createHash('sha1').update(req.body.password).digest('base64');
         }
-        data.save(function (err) {
+        data.save(function (err, data) {
           if (err) {
-            response = { "status": 501, "message": "Error updating data" };
+            response = { status: 501, message: "Error updating data" };
           } else {
-            response = { "status": 200, "message": "Data is updated for " + req.params.id };
+            response = { status: 200, data: data };
           }
           res.json(response);
         })
@@ -97,13 +97,13 @@ router.route("/users/:id")
     var response = {};
     mongoOp.findById(req.params.id, function (err, data) {
       if (err) {
-        response = { "status": 501, "message": "Error fetching data" };
+        response = { status: 501, message: "Error fetching data" };
       } else {
         mongoOp.remove({ _id: req.params.id }, function (err) {
           if (err) {
-            response = { "status": 501, "message": "Error deleting data" };
+            response = { status: 501, message: "Error deleting data" };
           } else {
-            response = { "status": 200, "message": "Data associated with " + req.params.id + "is deleted" };
+            response = { status: 200, message: "Data associated with " + req.params.id + "is deleted" };
           }
           res.json(response);
         });

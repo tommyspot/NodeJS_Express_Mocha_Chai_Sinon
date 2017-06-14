@@ -6,7 +6,7 @@ import { BrowserRouter, Switch, Route, Link } from 'react-router-dom';
 
 // Pages
 import Home from './js/jsx/home.jsx';
-import UserHome from './js/jsx/userHome.jsx';
+import UserHome from './js/jsx/containers/userHome.jsx';
 import UserDetail from './js/jsx/userDetail.jsx';
 
 import Header from './js/jsx/components/header.jsx';
