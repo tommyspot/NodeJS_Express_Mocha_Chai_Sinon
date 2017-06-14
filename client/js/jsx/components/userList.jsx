@@ -8,9 +8,8 @@ export default class UserList extends React.Component {
   render() {
     return (
       <div>
-          {/*<Link to="/users/1">Go to UserDetail</Link>*/}
           <table className="table table-bordered table-hover">
-            <thead  className="thead-inverse">
+            <thead className="thead-inverse">
               <tr>
                 <th>ID</th>
                 <th>Username</th>
