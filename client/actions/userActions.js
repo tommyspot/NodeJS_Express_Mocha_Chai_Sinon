@@ -1,4 +1,4 @@
-import * as types from './action-types';
+import * as types from './actionTypes';
 
 export function getUsersSuccess(users) {
   return {

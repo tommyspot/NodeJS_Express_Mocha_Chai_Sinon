@@ -16,14 +16,14 @@ describe('UserList', () => {
     expect(wrapper.find(User).length).toBe(2);
   });
 
-  // it('simulates a removed user', () => {
-  //   const removeUser = jest.fn();
-  //   const users = [{ _id: 1 }, { _id: 2 }];
-  //   const wrapper = shallow(<UserList users={users} removeUser={removeUser} updateUser={() => { }} />);
+  //Different between shallow (not go to child components) and mount(go to child components)
+  it('simulates a removed user', () => {
+    const removeUser = jest.fn();
+    const users = [{ _id: 1 }, { _id: 2 }];
+    const wrapper = mount(<UserList users={users} removeUser={removeUser} updateUser={() => { }} />);
     
-  //   console.log(wrapper.find('.btn-danger').at(0));
-  //   wrapper.find('.btn-danger').at(0).simulate('click');
-  //   expect(removeUser).toBeCalled();
-  // });
+    wrapper.find('#removeUser-0').simulate('click');
+    expect(removeUser).toHaveBeenCalled();
+  });
 });
 
