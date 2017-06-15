@@ -7,7 +7,7 @@ import UserModal from '../components/userModal.jsx';
 import store from '../../../store';
 import { connect } from 'react-redux';
 
-class UserHome extends React.Component {
+export class UserHome extends React.Component {
 
   constructor(props){
     super(props);
