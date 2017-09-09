@@ -21,9 +21,9 @@
   },
   "homepage": "https://github.com/codeforgeek/Node-and-mongo-tutorial",
   "dependencies": {
-    "body-parser": "^1.13.3",
+    "body-parser": "^1.17.2",
     "chai": "^4.0.1",
-    "express": "^4.13.3",
+    "express": "^4.15.3",
     "istanbul": "^0.4.5",
     "jade": "^1.11.0",
     "mocha": "^3.4.2",

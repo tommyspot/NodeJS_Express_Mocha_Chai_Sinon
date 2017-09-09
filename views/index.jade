@@ -2,10 +2,13 @@ doctype html
 html
   head
     title= title
-
+    link(href='/css/bootstrap/bootstrap.min.css', rel='stylesheet')
+    link(href='/public/style.css', rel='stylesheet')
   body
-    h1 #{content}
-    
+    //- h1 #{content}
     include ../client/html/index.html
 
-    script(src="/scripts/bundle.js")
+    script(src="/scripts/lib/jquery/jquery-3.1.1.slim.min.js")
+    script(src="/scripts/lib/bootstrap/tether.min.js")
+    script(src="/scripts/lib/bootstrap/bootstrap.min.js")
+    script(src="/public/bundle.js")
